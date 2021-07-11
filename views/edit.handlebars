@@ -1,0 +1,51 @@
+<form action="/restaurants/{{ restaurant._id }}/edit" method="POST" class="w-50 mx-auto mt-2">
+
+  <div class="form-group">
+    <label for="name">中文名稱</label>
+    <input type="text" class="form-control" name="name" id="name" placeholder="請輸入餐廳的中文名 ..." value="{{ restaurant.name }}" required>
+  </div>
+
+  <div class="form-group">
+    <label for="name_en">英文名稱</label>
+    <input type="text" class="form-control" name="name_en" id="name_en" placeholder="請輸入餐廳的英文名 ..." value="{{ restaurant.name_en }}" required>
+  </div>
+  
+  <div class="form-group">
+    <label for="category">種類</label>
+    <input type="text" class="form-control" name="category" id="category" placeholder="請輸入餐廳的種類 ..." value="{{ restaurant.category }}" required>
+  </div>
+
+  <div class="form-group">
+    <label for="image">圖片</label>
+    <input type="text" class="form-control" name="image" id="image" placeholder="請輸入餐廳的圖片網址 ..." value="{{ restaurant.image }}" required>
+  </div>
+
+  <div class="form-group">
+    <label for="location">地址</label>
+    <input type="text" class="form-control" name="location" id="location" placeholder="請輸入餐廳的地址 ..." value="{{ restaurant.location }}" required>
+  </div>
+
+  <div class="form-group">
+    <label for="phone">電話</label>
+    <input type="text" class="form-control" name="phone" id="phone" placeholder="請輸入餐廳的電話 ..." value="{{ restaurant.phone }}" required>
+  </div>
+
+  <div class="form-group">
+    <label for="google_map">Google_地圖</label>
+    <input type="text" class="form-control" name="google_map" id="google_map" placeholder="請輸入餐廳的 Google_地圖網址 ..." value="{{ restaurant.google_map }}" required>
+  </div>
+
+  <div class="form-group">
+    <label for="rating">評分</label>
+    <input type="text" class="form-control" name="rating" id="rating" placeholder="請輸入餐廳的評分 ..." value="{{ restaurant.rating }}" required>
+  </div>
+
+  <div class="form-group">
+    <label for="description">敘述</label>
+    <input type="text" class="form-control" name="description" id="description" placeholder="請輸入餐廳詳細的說明 ..." value="{{ restaurant.description }}" required>
+  </div>
+
+  <button id="submit-btn" type="submit" class="btn btn-success mr-2">Save</button>
+  <a class="btn btn-primary" href="/" role="button">back</a>
+  
+</form>

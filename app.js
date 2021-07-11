@@ -36,19 +36,24 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.get("/search", (req, res) => {
   //剔除多餘的空白
   const keyword = req.query.keyword.trim();
+  //「搜尋資料為空」的例外處理
   const rightKeyword = keyword === "" ? "為空白" : keyword;
-
-  const restaurants = restaurantList.results.filter((restaurant) => {
-    return (
-      restaurant.name.toLowerCase().includes(rightKeyword.toLowerCase()) ||
-      restaurant.category.toLowerCase().includes(rightKeyword.toLowerCase())
-    );
-  });
-
-  restaurants.length === 0
-    ? res.render("notShow", { rightKeyword })
-    : res.render("index", { restaurants, rightKeyword });
+  Restaurant.find()
+    .lean()
+    .then((restaurants) => {
+      const restaurantSearch  = restaurants.filter((restaurant) => {
+        return (
+          restaurant.name.toLowerCase().includes(rightKeyword.toLowerCase()) ||
+          restaurant.category.toLowerCase().includes(rightKeyword.toLowerCase())
+        );
+      });
+      restaurantSearch.length === 0
+        ? res.render("notShow", { rightKeyword })
+        : res.render("index", { restaurants: restaurantSearch, rightKeyword });
+    })
+    .catch((error) => console.error(error));
 });
+
 // 建立新的餐廳頁面
 app.get("/restaurants/new", (req, res) => {
   return res.render("new");
@@ -107,6 +112,16 @@ app.post("/restaurants/:id/edit", (req, res) => {
     })
 
     .then(() => res.redirect(`/restaurants/${id}`))
+    .catch((error) => console.log(error));
+});
+
+// 刪除特定餐廳
+app.post("/restaurants/:id/delete", (req, res) => {
+  const id = req.params.id;
+  
+  return Restaurant.findById(id)
+    .then((restaurant) => restaurant.remove())
+    .then(() => res.redirect("/"))
     .catch((error) => console.log(error));
 });
 

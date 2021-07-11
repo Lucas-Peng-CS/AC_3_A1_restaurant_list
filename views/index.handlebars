@@ -49,8 +49,11 @@
                 <span class="badge badge-pill badge-danger font-weight-normal">
                   {{this.rating}}
                   <i class="fas fa-star fa-xs"></i>
-                  <a href="./restaurants/{{ this._id }}">detail</a>
-                  <a href="./restaurants/{{ this._id }}/edit">edit</a>
+                  <a class="btn btn-primary btn-sm mx-1" href="./restaurants/{{ this._id }}" role="button">detail</a>
+                  <a class="btn btn-warning btn-sm mx-1" href="./restaurants/{{ this._id }}/edit" role="button">edit</a>
+                  <form action="./restaurants/{{ this._id }}/delete" method="POST" style="display: inline;">
+                    <button type="submit" class="btn btn-danger btn-sm mx-1">delete</button>
+                  </form>
                 </span>
 
               </div>

@@ -49,11 +49,11 @@ app.get("/search", (req, res) => {
     ? res.render("notShow", { rightKeyword })
     : res.render("index", { restaurants, rightKeyword });
 });
-
+// 建立新的餐廳頁面
 app.get("/restaurants/new", (req, res) => {
   return res.render("new");
 });
-
+// 建立新的餐廳到資料庫
 app.post("/restaurants", (req, res) => {
   const datas = req.body; // 從 req.body 拿出表單裡的資料
   return Restaurant.create(datas) // 存入資料庫
@@ -61,11 +61,13 @@ app.post("/restaurants", (req, res) => {
     .catch((error) => console.log(error));
 });
 
-app.get("/restaurants/:restaurant_id", (req, res) => {
-  const restaurant = restaurantList.results.find(
-    (restaurant) => restaurant.id.toString() === req.params.restaurant_id
-  );
-  res.render("show", { restaurant });
+//瀏覽特定餐廳
+app.get("/restaurants/:id", (req, res) => {
+  const id = req.params.id;
+  return Restaurant.findById(id)
+    .lean()
+    .then((restaurant) => res.render("detail", { restaurant }))
+    .catch((error) => console.log(error));
 });
 
 app.listen(port, () => {

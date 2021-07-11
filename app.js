@@ -1,6 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const restaurantList = require("./restaurant.json");
+
 const app = express();
 mongoose.connect("mongodb://localhost/restaurant_list", {
   useNewUrlParser: true,

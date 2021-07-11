@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
-cosnt restaurantSchema = new Schema({
+const restaurantSchema = new Schema({
   id: {
     type:Number
   },

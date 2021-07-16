@@ -10,6 +10,7 @@ const port = 3000;
 const exphbs = require("express-handlebars");
 const db = mongoose.connection;
 const bodyParser = require("body-parser");
+const methodOverride = require('method-override')
 
 db.on("error", () => {
   console.log("mongodb error");
@@ -32,6 +33,8 @@ app.get("/", (req, res) => {
 });
 
 app.use(bodyParser.urlencoded({ extended: true }));
+
+app.use(methodOverride('_method'))
 
 app.get("/search", (req, res) => {
   //剔除多餘的空白
@@ -85,7 +88,7 @@ app.get("/restaurants/:id/edit", (req, res) => {
 });
 
 //修改特定餐廳資料到資料庫
-app.post("/restaurants/:id/edit", (req, res) => {
+app.put("/restaurants/:id", (req, res) => {
   const id = req.params.id
 
   return Restaurant.findById(id)
@@ -99,7 +102,7 @@ app.post("/restaurants/:id/edit", (req, res) => {
 });
 
 // 刪除特定餐廳
-app.post("/restaurants/:id/delete", (req, res) => {
+app.delete("/restaurants/:id", (req, res) => {
   const id = req.params.id;
   
   return Restaurant.findById(id)

@@ -4,23 +4,36 @@
     <div class="search-bar-inner">
       <form action="/restaurants/search">
         <h4 class="mb-2">尋找餐廳：</h4>
-        <div class="input-group">
-          <input
-            type="text"
-            name="keyword"
-            class="form-control"
-            placeholder="輸入餐廳、分類"
-            aria-label="Restaurant Name..."
-            value="{{rightKeyword}}"
-            aria-describedby="search-button"
-          />
-          <div class="input-group-append">
-            <button class="btn btn-major" type="submit" id="search-button"><i
-                class="fas fa-search"
-              ></i></button>
+        <div class="input-sort">
+          <div class="input-group">
+            <input
+              type="text"
+              name="keyword"
+              class="form-control"
+              placeholder="輸入餐廳、分類"
+              aria-label="Restaurant Name..."
+              value="{{rightKeyword}}"
+              aria-describedby="search-button"
+            />
+            <div class="input-group-append">
+              <button class="btn btn-major" type="submit" id="search-button"><i
+                  class="fas fa-search"
+                ></i></button>
+            </div>
           </div>
+          </form>
+          <form action="/restaurants/sort">
+          <select class="custom-select" name="sort" onchange="submit()">
+            <option selected >{{sortValue}}</option>
+            <option value="nameEnAsc">A->Z</option>
+            <option value="nameEnDesc">Z->A</option>
+            <option value="category">類別</option>
+            <option value="location">地區</option>
+            <option value="rating">評分</option>
+          </select>
+          </form>
         </div>
-      </form>
+      
     </div>
   </div>
 </div>
@@ -31,7 +44,7 @@
     <div class="col-md-10 col-12 mx-auto">
       <div class="card-columns">
         {{#each restaurants}}
-          <a href="./restaurants/{{ this._id }}" class="text-secondary">
+          <a href="/restaurants/{{this._id}}" class="text-secondary">
             <div class="card mb-3">
               <img
                 class="card-img-top"
@@ -51,10 +64,25 @@
                   <i class="fas fa-star fa-xs"></i>
                 </span>
                 <div class="footer text-right">
-                  <a class="btn btn-warning btn-sm mx-1" href="./restaurants/{{ this._id }}/edit" role="button">Edit</a>
-                  <a class="btn btn-primary btn-sm mx-1" href="./restaurants/{{ this._id }}" role="button">Detail</a>
-                  <form action="./restaurants/{{ this._id }}?_method=DELETE" method="POST" style="display: inline;">
-                    <button type="submit" class="btn btn-danger btn-sm mx-1">Delete</button>
+                  <a
+                    class="btn btn-warning btn-sm mx-1"
+                    href="/restaurants/{{this._id}}/edit"
+                    role="button"
+                  >Edit</a>
+                  <a
+                    class="btn btn-primary btn-sm mx-1"
+                    href="/restaurants/{{this._id}}"
+                    role="button"
+                  >Detail</a>
+                  <form
+                    action="/restaurants/{{this._id}}?_method=DELETE"
+                    method="POST"
+                    style="display: inline;"
+                  >
+                    <button
+                      type="submit"
+                      class="btn btn-danger btn-sm mx-1"
+                    >Delete</button>
                   </form>
                 </div>
               </div>

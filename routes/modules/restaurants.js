@@ -2,11 +2,14 @@ const express = require("express");
 const router = express.Router();
 const Restaurant = require("../../models/restaurant");
 
+// 搜尋餐廳
 router.get("/search", (req, res) => {
   //剔除多餘的空白
   const keyword = req.query.keyword.trim();
   //「搜尋資料為空」的例外處理
   const rightKeyword = keyword === "" ? "為空白" : keyword;
+  const sortValue = "Sort";
+
   Restaurant.find()
     .lean()
     .then((restaurants) => {
@@ -18,7 +21,38 @@ router.get("/search", (req, res) => {
       });
       restaurantSearch.length === 0
         ? res.render("notShow", { rightKeyword })
-        : res.render("index", { restaurants: restaurantSearch, rightKeyword });
+        : res.render("index", {
+            restaurants: restaurantSearch,
+            rightKeyword,
+            sortValue,
+          });
+    })
+    .catch((error) => console.error(error));
+});
+
+// 排序資料
+router.get("/sort", (req, res) => {
+  const sortName = req.query.sort;
+  const sort = {
+    nameEnAsc: { name_en: "asc" },
+    nameEnDesc: { name_en: "desc" },
+    category: { category: "asc" },
+    location: { location: "asc" },
+    rating: { rating: "desc" },
+  };
+  const sortValue = {
+    nameEnAsc: "A->Z",
+    nameEnDesc: "Z->A",
+    category: "類別",
+    location: "地區",
+    rating: "評分",
+  };
+
+  Restaurant.find()
+    .lean()
+    .sort(sort[sortName])
+    .then((restaurants) => {
+      res.render("index", { restaurants, sortValue: sortValue[sortName] });
     })
     .catch((error) => console.error(error));
 });
@@ -62,7 +96,6 @@ router.put("/:id", (req, res) => {
       restaurant = Object.assign(restaurant, req.body);
       return restaurant.save();
     })
-
     .then(() => res.redirect(`/restaurants/${id}`))
     .catch((error) => console.log(error));
 });
@@ -77,6 +110,4 @@ router.delete("/:id", (req, res) => {
     .catch((error) => console.log(error));
 });
 
-module.exports = router
-
-
+module.exports = router;

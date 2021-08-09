@@ -8,6 +8,7 @@ const port = 3000
 const exphbs = require('express-handlebars')
 const bodyParser = require('body-parser')
 const methodOverride = require('method-override')
+const flash = require('connect-flash')
 
 // 設定樣板引擎
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }))
@@ -27,9 +28,13 @@ app.use(methodOverride('_method'))
 
 usePassport(app)
 
+app.use(flash())
+
 app.use((req, res, next) => {
   res.locals.isAuthenticated = req.isAuthenticated()
   res.locals.user = req.user
+  res.locals.success_msg = req.flash('success_msg')
+  res.locals.warning_msg = req.flash('warning_msg')
   next()
 })
 

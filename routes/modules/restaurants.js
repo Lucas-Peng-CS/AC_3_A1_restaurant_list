@@ -9,8 +9,9 @@ router.get('/search', (req, res) => {
   // 「搜尋資料為空」的例外處理
   const rightKeyword = keyword === '' ? '為空白' : keyword
   const sortValue = 'Sort'
+  const userId = req.user._id
 
-  Restaurant.find()
+  Restaurant.find({ userId })
     .lean()
     .then((restaurants) => {
       const restaurantSearch = restaurants.filter((restaurant) => {
@@ -33,6 +34,7 @@ router.get('/search', (req, res) => {
 // 排序資料
 router.get('/sort', (req, res) => {
   const sortName = req.query.sort
+  const userId = req.user._id
   const sort = {
     nameEnAsc: { name_en: 'asc' },
     nameEnDesc: { name_en: 'desc' },
@@ -48,7 +50,7 @@ router.get('/sort', (req, res) => {
     rating: '評分'
   }
 
-  Restaurant.find()
+  Restaurant.find({ userId })
     .lean()
     .sort(sort[sortName])
     .then((restaurants) => {

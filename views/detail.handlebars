@@ -44,20 +44,55 @@
         alt="{{restaurant.name}}"
         style="max-width: 600px;"
       />
+      <div class="btn mx-auto d-block">
+        <a
+          class="btn btn-warning mr-2"
+          href="/restaurants/{{restaurant._id}}/edit"
+          role="button"
+        >edit
+        </a>
+        <a class="btn btn-primary" href="/" role="button">back</a>
 
-      <a
-        class="btn btn-warning mr-2"
-        href="/restaurants/{{restaurant._id}}/edit"
-        role="button"
-      >edit</a>
-      <a class="btn btn-primary" href="/" role="button">back</a>
-      <form
-        action="/restaurants/{{restaurant._id}}?_method=DELETE"
-        method="POST"
-        style="display: inline;"
-      >
-        <button type="submit" class="btn btn-danger mx-1">delete</button>
-      </form>
+        <button
+          type="button"
+          class="btn btn-danger mx-1"
+          data-toggle="modal"
+          data-target="#modal-{{restaurant._id}}"
+        >
+          delete
+        </button>
+
+        <!-- Modal -->
+        <div class="modal fade" id="modal-{{restaurant._id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">{{restaurant.name}}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body text-center">
+                      確定要刪除【{{restaurant.name}}】嗎?
+              </div>
+              <div class="modal-footer align-items-center">
+                <button type="button" class="btn btn-secondary btn-sm " data-dismiss="modal">取消</button>
+                <form
+                  class="my-auto"
+                  action="/restaurants/{{restaurant._id}}?_method=DELETE"
+                  method="POST"
+                  >
+                  <button
+                    type="submit"
+                    class="btn btn-danger btn-sm mr-1"
+                    >刪除
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div> 
+      </div>
     </div>
   </div>
 </div>

@@ -73,4 +73,4 @@
 
 環境變數在`.env.example` 檔案中，將檔案名稱改成`.env`後，請使用自己的憑證密碼。<br>
 FACEBOOK_ID<br>
-FACEBOOK_SECRE
+FACEBOOK_SECRET

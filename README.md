@@ -61,14 +61,14 @@
 ### 預設種子使用者
 
 - 第一位使用者：
-  1.email: user1@example.com
-  2.password: 12345678 3.擁有 #1, #2, #3 號餐廳
+  1.email: user1@example.com<br>
+  2.password: 12345678 3.擁有 #1, #2, #3 號餐廳<br>
 - 第二位使用者：
-  1.email: user2@example.com
+  1.email: user2@example.com<br>
   2.password: 12345678 3.擁有 #4, #5, #6 號餐廳
 
 ### 環境變數
 
-環境變數在`.env.example` 檔案中，將檔案名稱改成`.env`後，請使用自己的憑證密碼。
-FACEBOOK_ID
+環境變數在`.env.example` 檔案中，將檔案名稱改成`.env`後，請使用自己的憑證密碼。<br>
+FACEBOOK_ID<br>
 FACEBOOK_SECRE
